@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        @Html.Partial("_navbar");
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <div>
+        @Html.Partial("_footer");
+    </div>
+
+</body>
+</html>

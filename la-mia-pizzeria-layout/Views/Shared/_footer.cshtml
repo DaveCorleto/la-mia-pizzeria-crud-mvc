@@ -1,0 +1,60 @@
+﻿@page
+@model Test_MVC_2.Views.Shared.IndexModel
+@{
+}
+<footer>
+    <div class="container">
+        <div class="footer-info">
+            <h3>Contatti</h3>
+            <p><strong>Indirizzo:</strong> Via Pizzeria, 12345, Città</p>
+            <p><strong>Telefono:</strong> 0123 456789</p>
+            <p><strong>Email:</strong> info@pizzeria.com</p>
+        </div>
+        <div class="social-media">
+            <h3>Seguici su</h3>
+            <a href="https://www.facebook.com/pizzeria" target="_blank" class="social-link"><i class="fab fa-facebook-square"></i></a>
+            <a href="https://www.instagram.com/pizzeria" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/pizzeria" target="_blank" class="social-link"><i class="fab fa-twitter-square"></i></a>
+        </div>
+    </div>
+    <div class="credits">
+        <p>&copy; 2024 Pizzeria. Tutti i diritti riservati.</p>
+    </div>
+</footer>
+<style>
+
+    footer {
+        text-align: center;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+
+    .social-link {
+        color: #333;
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .credits {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .fab {
+        transition: color 0.3s ease;
+    }
+
+    .social-link:hover .fab {
+        color: #e91e63;
+    }
+
+
+</style>
