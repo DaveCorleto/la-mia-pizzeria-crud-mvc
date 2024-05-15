@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
+using System.Xml.Linq;
 
 namespace Test_MVC_2
 {
@@ -15,7 +19,11 @@ namespace Test_MVC_2
         //con bootstrap o una qualche grafica a nostro piacimento che mostri l’elenco delle pizze...
         //proviamo un po’ di creatività se vogliamo!)
         //Piccolo suggerimento : ricordatevi di inserire il seguente codice all’inizio della vostra view
-        //@ { Layout = null; }
+        //@ { Lay
+        //out = null; }
+
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
@@ -28,6 +36,7 @@ namespace Test_MVC_2
             Url = url;
             Price = price;
         }
+        public Pizza() { }
     }  
 
 

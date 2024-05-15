@@ -2,25 +2,39 @@
     ViewData["Title"] = "Home Page";
     Layout = "_LayoutPersonalizzato";
 
-    List<Pizza> pizze = new List<Pizza>();
+// IMPORTANTE: Ricordatevi di sganciare la vostra vecchia repository GIT e di crearne una nuova per questo esercizio, che prosegue il lavoro della pizzeria, dove lo avevate lasciato. Potete eliminare il progetto Razor da questa esercitazione.
+// Ciao ragazzi,
+// andiamo avanti con l’applicazione per gestire la nostra pizzeria.
+// Lo scopo di oggi è quello di rendere dinamici i contenuti che abbiamo come html statico nella pagina con la lista delle pizze.
+// Creiamo prima un nostro controller chiamato PizzaController e utilizziamo lui d’ora in avanti.
+// L’elenco delle pizze ora va passato come model dal controller, e la view deve utilizzarlo per mostrare l’html corretto.
+// Gestiamo anche la possibilità che non ci siano pizze nell’elenco: in quel caso dobbiamo mostrare un messaggio che indichi all’utente che non ci sono pizze presenti nella nostra applicazione.
+// Ogni pizza dell’elenco avrà un pulsante che se cliccato ci porterà a una pagina che mostrerà i dettagli di quella singola pizza.
+// Dobbiamo quindi inviare l’id come parametro dell’URL, recuperarlo con la action, caricare i dati della pizza ricercata e passarli come model.
+// La view a quel punto li mostrerà all’utente con la grafica che preferiamo.
+// Ps.visto che abbiamo cambiato il controller sul quale lavoriamo, ricordiamoci di cambiare anche il “mapping di default” dei controller...altrimenti quale pagina viene caricata se richiamo l’url “/” della nostra webapp?
+// Piccolo dettaglio…ricordatevi che i dati delle pizze devono essere in un database…quindi dobbiamo usare Entity Framework!;)
+// Buon lavoro!!
 
-    Pizza margherita = new Pizza("Margherita", "Pomodoro e Mozzarella", "img/pizza-1.jpg", 5.90f);
-    pizze.Add(margherita);
+    // List<Pizza> pizze = new List<Pizza>();
 
-    Pizza capricciosa = new Pizza("Capricciosa", "Pomodoro, Mozzarella, funghi e carciofini", "img/pizza-2.jpg", 7.90f);
-    pizze.Add(capricciosa);
+    // Pizza margherita = new Pizza("Margherita", "Pomodoro e Mozzarella", "img/pizza-1.jpg", 5.90f);
+    // pizze.Add(margherita);
 
-    Pizza salamino = new Pizza("Salamino", "Pomodoro mozzarella e salamino", "img/pizza-3.jpg", 8.90f);
-    pizze.Add(salamino);
+    // Pizza capricciosa = new Pizza("Capricciosa", "Pomodoro, Mozzarella, funghi e carciofini", "img/pizza-2.jpg", 7.90f);
+    // pizze.Add(capricciosa);
 
-    Pizza moenese= new Pizza("Moenese", "Pomodoro, Mozzarella, puzzone e funghi", "img/pizza-4.jpg", 11.90f);
-    pizze.Add(moenese);
+    // Pizza salamino = new Pizza("Salamino", "Pomodoro mozzarella e salamino", "img/pizza-3.jpg", 8.90f);
+    // pizze.Add(salamino);
 
-    Pizza montanara = new Pizza("Montanara", "Fontina e pancetta", "img/pizza-5.jpg", 9.90f);
-    pizze.Add(montanara);
+    // Pizza moenese= new Pizza("Moenese", "Pomodoro, Mozzarella, puzzone e funghi", "img/pizza-4.jpg", 11.90f);
+    // pizze.Add(moenese);
 
-    Pizza deaKhalì = new Pizza("Dea Khalì", "Polpo, Patate, limone e prezzemolo", "img/pizza-6.jpg", 10.90f);
-    pizze.Add(deaKhalì);
+    // Pizza montanara = new Pizza("Montanara", "Fontina e pancetta", "img/pizza-5.jpg", 9.90f);
+    // pizze.Add(montanara);
+
+    // Pizza deaKhalì = new Pizza("Dea Khalì", "Polpo, Patate, limone e prezzemolo", "img/pizza-6.jpg", 10.90f);
+    // pizze.Add(deaKhalì);
 
 
 }
