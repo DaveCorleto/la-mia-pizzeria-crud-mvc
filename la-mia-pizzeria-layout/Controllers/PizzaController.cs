@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Test_MVC_2.Data;
 
 namespace Test_MVC_2.Controllers
 {

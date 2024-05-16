@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Policy;
 using System.Xml.Linq;
 
-namespace Test_MVC_2
+namespace Test_MVC_2.Data
 {
     public class Pizza
     {
@@ -37,7 +37,7 @@ namespace Test_MVC_2
             Price = price;
         }
         public Pizza() { }
-    }  
+    }
 
 
 

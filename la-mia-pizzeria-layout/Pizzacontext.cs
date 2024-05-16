@@ -1,5 +1,5 @@
 ﻿
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Quic;
@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using Test_MVC_2.Data;
 
 namespace Test_MVC_2
 {
 
-    
 
-    public class AppDbContext : DbContext
+
+    public class PizzaContext : DbContext
     {
         const string _connectionString = "Data Source=localhost;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Initial Catalog=PizzeriaDB;";
 
