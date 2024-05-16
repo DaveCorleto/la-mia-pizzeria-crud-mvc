@@ -1,14 +1,15 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Test_MVC_2
 {
     public class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //// Add services to the container.
-            //builder.Services.AddControllersWithViews();
-
+            // Add services to the container.
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
@@ -34,7 +35,8 @@ namespace Test_MVC_2
 
             app.Run();
 
-            
+            Test_MVC_2.Data.PizzaManager.PopolaDB();
         }
     }
 }
+
