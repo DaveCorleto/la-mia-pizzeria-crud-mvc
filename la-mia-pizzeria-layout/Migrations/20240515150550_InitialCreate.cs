@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Test_MVC_2.Data;
 
 #nullable disable
 
 namespace Test_MVC_2.Migrations
 {
     /// <inheritdoc />
+    /// 
+    [DbContext(typeof(PizzaContext))]
     public partial class InitialCreate : Migration
     {
         /// <inheritdoc />

@@ -1,4 +1,6 @@
-﻿namespace Test_MVC_2.Data
+﻿using Test_MVC_2.Models;
+
+namespace Test_MVC_2.Data
 
 {
     public static class PizzaManager

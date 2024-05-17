@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test_MVC_2;
+using Test_MVC_2.Data;
+
 
 #nullable disable
 
 namespace Test_MVC_2.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(PizzaContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
