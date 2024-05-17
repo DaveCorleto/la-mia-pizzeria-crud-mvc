@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Test_MVC_2.Models
 {
-    [Table("pizzas")]
+    [Table("Pizze")]
     public class Pizza
     {
 

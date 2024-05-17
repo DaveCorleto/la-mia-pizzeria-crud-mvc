@@ -17,7 +17,11 @@ namespace Test_MVC_2.Controllers
         //}
         public IActionResult Index()
         {
-            List<Pizza> pizze = PizzaManager.RecuperaTutteLePizze();
+
+
+            List<Pizza> pizze = new List<Pizza> { };
+                
+                pizze = PizzaManager.RecuperaTutteLePizze();
 
             //Pizza margherita = new Pizza("Margherita", "Pomodoro e Mozzarella", "img/pizza-1.jpg", 5.90f);
             //pizze.Add(margherita);
@@ -39,7 +43,7 @@ namespace Test_MVC_2.Controllers
             //Index questo caso faccio vedere la view Index anche se di 
             //default non ci sarebbe bisogno di specificarlo
 
-            return View("Index", pizze);
+            return View(pizze);
         }
         public IActionResult Show(int id)
         {

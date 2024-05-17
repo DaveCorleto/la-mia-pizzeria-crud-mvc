@@ -1,12 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Quic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+﻿using Microsoft.EntityFrameworkCore;
 using Test_MVC_2.Models;
 
 namespace Test_MVC_2

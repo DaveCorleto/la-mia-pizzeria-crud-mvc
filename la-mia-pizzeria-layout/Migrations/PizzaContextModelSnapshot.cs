@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test_MVC_2;
 
@@ -10,12 +9,10 @@ using Test_MVC_2;
 
 namespace Test_MVC_2.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20240515150550_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(PizzaContext))]
+    partial class PizzaContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +21,7 @@ namespace Test_MVC_2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Test_MVC_2.Pizza", b =>
+            modelBuilder.Entity("Test_MVC_2.Models.Pizza", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,11 +31,13 @@ namespace Test_MVC_2.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -49,7 +48,7 @@ namespace Test_MVC_2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pizzas");
+                    b.ToTable("Pizze");
                 });
 #pragma warning restore 612, 618
         }
