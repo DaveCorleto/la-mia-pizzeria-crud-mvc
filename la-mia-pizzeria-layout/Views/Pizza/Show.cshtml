@@ -1,0 +1,22 @@
+﻿@model Pizza
+@{
+    ViewData["Title"] = "Show";
+    Layout = "_LayoutPersonalizzato";
+
+
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<h1>MENU</h1>
+<h2>Dettaglio pizza</h2>
+
+<h1>Ecco la @Model.Name </h1>
+<img src="@Model.Url" alt="@Model.Name" class="img-fluid" style="max-width: 300px;" />
+<p>@Model.Description</p>
+<strong>Prezzo: </strong>
+<span>@Model.Price </span>
+
+<style>
+
+</style>
