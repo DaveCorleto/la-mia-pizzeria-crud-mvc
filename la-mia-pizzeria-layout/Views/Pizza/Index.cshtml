@@ -25,6 +25,15 @@
             </div>
             <div class="price">Prezzo: @pizza.Price.ToString("C")</div>
             <button><a href="@Url.Action("Show", "Pizza", new{ id = pizza.Id})">Mostra dettaglio pizza</a></button>
+            <button>
+                <a href="@Url.Action("Update", "Pizza", new{ id = pizza.Id})">
+                    Modifica
+                </a>
+            </button>
+            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Elimina" />
+            </form>
         </div>
     }
     <a href="@Url.Action("Create", "Pizza")">

@@ -7,14 +7,6 @@ namespace Test_MVC_2.Controllers
 {
     public class PizzaController : Controller
     {
-        //Istanzio il DBContext per renderlo accessibile qui
-
-        //public AppDbContext _context;
-
-        //public PizzaController(Pizzacontext context)
-        //{
-        //    _context = context;
-        //}
         public IActionResult Index()
         {
 
@@ -66,7 +58,56 @@ namespace Test_MVC_2.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var pizzaDaEditare = PizzaManager.RecuperaPizzaDaId(id);
+            if (pizzaDaEditare == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(pizzaDaEditare);
 
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(int id, Pizza pizza)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Update", pizza);
+            }
+
+
+            if (PizzaManager.EditaPizza(id, pizza.Name, pizza.Description, pizza.Url, pizza.Price))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            if (PizzaManager.PiallaPizza(id))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
 
     }
 }
