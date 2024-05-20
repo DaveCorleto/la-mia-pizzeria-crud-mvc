@@ -3,10 +3,14 @@
 
 @model Pizza
 @{
-    Layout = "_LayoutPersonalizzato";
     ViewData["Title"] = "Create";
+    Layout = "_LayoutPersonalizzato";
+
 }
+
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
 
 <div>
     <div class="wrapper">
@@ -15,36 +19,37 @@
                 @Html.AntiForgeryToken()
 
                 <div>
-                    <label for="inputNome">Inserisci il nome:</label>
+                    <label for="inputName">Inserisci il nome:</label>
                     <br />
-                    <input asp-for="Name" class="create-input" id="inputNome" />
+                    <input asp-for="Name" class="create-input" id="inputName" />
                     <br />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div>
-                    <label for="InputDescrizione">Inserisci gli ingredienti:</label>
+                    <label for="InputDescription">Inserisci gli ingredienti:</label>
                     <br />
-                    <input asp-for="Description" class="create-input" id="inputDescrizione" />
+                    <input asp-for="Description" class="create-input" id="inputDescription" />
                     <br />
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div>
-                    <label for="inputFotoPath">Inserisci la foto:</label>
+                    <label for="inputUrl">Inserisci la foto:</label>
                     <br />
-                    <input asp-for="Url" class="create-input" id="inputFotoPath" />
+                    <input asp-for="Url" class="create-input" id="inputUrl" />
                     <br />
                     <span asp-validation-for="Url" class="text-danger"></span>
                 </div>
                 <div>
-                    <label for="inputPrezzo">Inserisci un prezzo:</label>
+                    <label for="inputPrice">Inserisci un prezzo:</label>
                     <br />
-                    <input asp-for="Price" class="create-input" id="inputPrezzo" />
+                    <input asp-for="Price" class="create-input" id="inputPrice" />
                     <br />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div>
                     <input type="submit" class="submit-button" value="Salva">
                 </div>
+
             </form>
         </div>
     </div>

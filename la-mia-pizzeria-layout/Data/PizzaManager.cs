@@ -85,6 +85,13 @@ namespace Test_MVC_2.Data
                 PizzaManager.InserisciPizza(new Pizza("Diavola", "Farina 0 Pomodoro mozzarella salame piccante olio basilico", "img/pizza-6.jpg", 6.5f));
 
             }
+
+            static List<Category> GetAllCategories()
+            {
+                using PizzaContext db = new PizzaContext();
+                return db.Categories.ToList();
+            }
+
         }
     }
 }

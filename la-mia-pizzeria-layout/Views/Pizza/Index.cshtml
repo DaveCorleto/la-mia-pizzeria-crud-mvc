@@ -2,19 +2,17 @@
 
 @model List<Pizza>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
     Layout = "_LayoutPersonalizzato";
 
 }
-
-<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 <h1>MENU</h1>
 <h2>Le Nostre Pizze</h2>
 
 
 
-<div class="container">
+<div class="pizza-cont">
     @foreach (var pizza in Model)
     {
         <div class="pizza">
@@ -36,8 +34,37 @@
             </form>
         </div>
     }
-    <a href="@Url.Action("Create", "Pizza")">
-        Aggiungi una nuova pizza
+
+</div>
+
+<div class="new_pizza">
+    <a href="@Url.Action("Create", "Pizza")" id="new_pizza-link">
+        Aggiungi una nuova pizza!!!
     </a>
 </div>
 
+<style>
+    .pizza-cont {
+        display:flex;
+        align-content: center;
+        align-items:center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .pizza {
+        flex-basis: calc((100% / 4) - 10px);
+    }
+    .new_pizza {
+        width: 50%;
+        margin:auto;
+        display:flex;
+        justify-content:center;
+    }
+
+    #new_pizza-link {
+        margin:auto;
+        text-align:center;
+    }
+
+
+</style>

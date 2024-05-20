@@ -2,12 +2,14 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+ 
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <header>
-        @Html.Partial("_navbar");
+        @Html.PartialAsync("_navbar");
     </header>
 
     <main>
@@ -15,18 +17,9 @@
     </main>
 
     <div>
-        @Html.Partial("_footer");
+        @Html.PartialAsync("_footer");
     </div>
 
 </body>
-
-<style>
-
-    body {
-        margin-bottom: 60px;
-        background-image: url("../img/locale.jpg");
-        background-size: cover;
-    }
-</style>
 
 </html>

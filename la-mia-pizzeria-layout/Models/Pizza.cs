@@ -11,14 +11,12 @@ namespace Test_MVC_2.Models
     [Table("Pizze")]
     public class Pizza
     {
-
         [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
         [StringLength(30, ErrorMessage = "Massimo 30 caratteri")]
         [MinLength(3)]
-
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
@@ -33,16 +31,29 @@ namespace Test_MVC_2.Models
         [Range(0.01, 999.99, ErrorMessage = "Il prezzo deve essere compreso tra 0,01 e 999,99.")]
         public float Price { get; set; }
 
-        public Pizza(string name, string description, string url, float price)
+
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+
+        public Pizza(string name, string description, string url, float price) : this()
         {
             Name = name;
             Description = description;
             Url = url;
             Price = price;
         }
+
         public Pizza() { }
+
+        public string GetDisplayedCategory()
+        {
+            if (Category == null)
+                return "Nessuna categoria";
+            return Category.Title;
+        }
     }
-
-
-
 }
+
+
+
+

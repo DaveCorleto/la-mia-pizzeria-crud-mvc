@@ -12,6 +12,8 @@ namespace Test_MVC_2
         //Unica tab delle pizze
         public DbSet<Pizza> Pizzas { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public const string _connectionString = "Data Source=localhost;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Initial Catalog=PizzeriaDB;";
 
 
