@@ -17,12 +17,6 @@ html {
   min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
-    background-image:url("../img/locale.jpg");
-    background-size: cover;
-}
-
 h1 {
     color:red;
     text-align: center;
