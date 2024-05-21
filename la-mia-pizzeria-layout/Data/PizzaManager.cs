@@ -1,10 +1,19 @@
-﻿using Test_MVC_2.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using Test_MVC_2.Models;
 
 namespace Test_MVC_2.Data
 
 {
     public static class PizzaManager
     {
+        //Uso dell'enum per gestire meglio nei metodi i vari tipi di risultato
+        public enum ResultType
+        {
+            OK,
+            Exception,
+            NotFound
+        }
         public static int ContaTuttelePizze()
         {
             //Creo un istanza temporanea di PizzaContext
@@ -21,11 +30,20 @@ namespace Test_MVC_2.Data
             return db.Pizzas.ToList();
         }
         //Recupera la pizza dall'id
-        public static Pizza RecuperaPizzaDaId(int id)
+        public static Pizza RecuperaPizzaDaId(int id, bool includeReferences = true)
         {
             using PizzaContext db = new PizzaContext();
+            //Se l'elemento pizza che sto recuperando dal db include una category mi verrà
+            //restituita anche l'informazione della category
+
+            if (includeReferences)
+                return db.Pizzas.Where(x=>x.Id == id).Include(p=>p.Category).FirstOrDefault();
+
+            //Altrimenti mi viene restituito solo l'elemento pizza con valore di category null
+
             return db.Pizzas.FirstOrDefault(p => p.Id == id);
         }
+
 
         public static void InserisciPizza(Pizza pizza)
         {
@@ -34,44 +52,85 @@ namespace Test_MVC_2.Data
             db.SaveChanges();
         }
 
-        public static bool EditaPizza(int id, string name, string description, string url, float price)
-        {
-            using PizzaContext db = new PizzaContext();
-            var pizza = db.Pizzas.FirstOrDefault(p => p.Id == id);
 
-            if (pizza == null)
+        //public static bool EditaPizza(int id, string name, string description, string url, float price)
+        //{
+        //    using PizzaContext db = new PizzaContext();
+        //    var pizza = db.Pizzas.FirstOrDefault(p => p.Id == id);
+
+        //    if (pizza == null)
+        //    {
+        //        return false;
+
+        //    }
+
+        //    pizza.Name = name;
+        //    pizza.Description = description;
+        //    pizza.Url = url;
+        //    pizza.Price = price;
+        //    db.SaveChanges();
+        //    return true;
+        //}
+
+        //Alla Update (EditaPizza) Anzichè i parametri singoli gli passo direttamente l'oggetto Pizza
+
+        public static bool EditaPizza(int id, Pizza pizza)
+        {
+            try
+            {
+
+                using PizzaContext db = new PizzaContext();
+                //Assegno alla var pizzadamodificare il valore della query che mi restituisce la pizza che corrisponde a questo id
+
+                var pizzaDaModificare = db.Pizzas.FirstOrDefault(p => p.Id == id);
+
+                //Se la pizza in questione non esiste il valore mi ritorna null
+
+                if (pizzaDaModificare == null)
+                    return false;
+
+                //altrimenti aggiorno i valori delle proprietà dell'oggetto pizza con i valori che gli passo 
+                //dalla view update tramite form 
+                    
+                pizzaDaModificare.Name = pizza.Name;
+                pizzaDaModificare.Description = pizza.Description;
+                pizzaDaModificare.Price = pizza.Price;
+                pizzaDaModificare.CategoryId = pizza.CategoryId;
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
             {
                 return false;
-
             }
-
-            pizza.Name = name;
-            pizza.Description = description;
-            pizza.Url = url;
-            pizza.Price = price;
-            db.SaveChanges();
-
-            return true;
         }
 
         public static bool PiallaPizza(int id)
         {
-            using PizzaContext db = new PizzaContext();
-            var pizzaDaPiallare = db.Pizzas.FirstOrDefault(p => p.Id == id);
+            try
+            {
+               //Qui recupero la pizza selezionata con il metodo Rec...NON creo un nuovo context del db perchè sta già lavorando quello
+               //che utilizza RecuperaPizzaDaId...
 
-            if (pizzaDaPiallare == null)
-            {
-                return false;
-            }
-            else
-            {
-                db.Pizzas.Remove(pizzaDaPiallare);
+                var pizzaDaCancellare = RecuperaPizzaDaId(id, false); // db.Pizzas.FirstOrDefault(p => p.Id == id);
+                if (pizzaDaCancellare == null)
+                    return false;
+
+                //qui invece DEVO creare un nuovo contesto per essere sicuro che la rimozione dell'oggetto pizza venga tracciato dal DB'
+
+                using PizzaContext db = new PizzaContext();
+                db.Remove(pizzaDaCancellare);
                 db.SaveChanges();
                 return true;
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-            public static void PopolaDB()
+        public static void PopolaDB()
         {
             if (PizzaManager.ContaTuttelePizze() == 0)
             {
@@ -86,12 +145,15 @@ namespace Test_MVC_2.Data
 
             }
 
-            static List<Category> GetAllCategories()
-            {
-                using PizzaContext db = new PizzaContext();
-                return db.Categories.ToList();
-            }
-
         }
+
+        //Perchè non vuole public?
+
+        public static List<Category> GetAllCategories()
+        {
+            using PizzaContext db = new PizzaContext();
+            return db.Categories.ToList();
+        }
+
     }
 }

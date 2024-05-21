@@ -4,14 +4,14 @@ namespace Test_MVC_2.Models
 {
     public class PizzaFormModel
     {
-        public Pizza Pizza { get; set; }
+        public Pizza pizza { get; set; }
         public List<Category>? Categories { get; set; }
 
         public PizzaFormModel() { }
 
         public PizzaFormModel(Pizza p, List<Category> c)
         {
-            this.Pizza = p;
+            this.pizza = p;
             this.Categories = c;
         }
     }

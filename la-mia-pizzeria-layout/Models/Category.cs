@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Test_MVC_2.Models;
 
 namespace Test_MVC_2.Models
 {
@@ -9,7 +10,6 @@ namespace Test_MVC_2.Models
 
         public List<Pizza> Pizzas { get; set; }
 
-        public Category() { }
     }
 }
 

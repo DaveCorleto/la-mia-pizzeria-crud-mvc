@@ -1,25 +1,23 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
- 
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        @Html.PartialAsync("_navbar");
+        @await Html.PartialAsync("_navbar")
     </header>
 
     <main>
         @RenderBody()
     </main>
 
-    <div>
-        @Html.PartialAsync("_footer");
-    </div>
-
+    <footer>
+        @await Html.PartialAsync("_footer")
+    </footer>
 </body>
-
 </html>
+

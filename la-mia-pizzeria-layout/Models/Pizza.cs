@@ -25,7 +25,7 @@ namespace Test_MVC_2.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
         [Range(0.01, 999.99, ErrorMessage = "Il prezzo deve essere compreso tra 0,01 e 999,99.")]
@@ -45,6 +45,13 @@ namespace Test_MVC_2.Models
 
         public Pizza() { }
 
+        //Costruttore con valori che non possono essere null
+        public Pizza(string name, string description, float price)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+        }
         public string GetDisplayedCategory()
         {
             if (Category == null)
