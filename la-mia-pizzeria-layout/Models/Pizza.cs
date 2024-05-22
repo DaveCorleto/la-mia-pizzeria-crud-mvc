@@ -35,6 +35,8 @@ namespace Test_MVC_2.Models
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
+        public List<Ingredient>? Ingredients { get; set; }
+
         public Pizza(string name, string description, string url, float price) : this()
         {
             Name = name;
@@ -42,6 +44,8 @@ namespace Test_MVC_2.Models
             Url = url;
             Price = price;
         }
+
+
 
         public Pizza() { }
 

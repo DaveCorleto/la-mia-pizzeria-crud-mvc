@@ -25,13 +25,6 @@ namespace Test_MVC_2.Controllers
         }
 
 
-        //public IActionResult Index()
-        //{
-        //    List<Pizza> pizze = new List<Pizza> { };
-        //    pizze = PizzaManager.RecuperaTutteLePizze();
-        //    return View(pizze);
-        //}
-
         [HttpGet]
         public IActionResult Index()
         {
@@ -92,16 +85,18 @@ namespace Test_MVC_2.Controllers
                 // Ritorno la form di prima con i dati della pizza
                 // precompilati dall'utente
                 pizzaDaInserire.Categories = PizzaManager.GetAllCategories();
-          
+                pizzaDaInserire.CreateIngredients();
+
                 return View("Create", pizzaDaInserire);
             }
             //Altrimenti se SONO validi inserisco a db la nuova pizza
 
-            PizzaManager.InserisciPizza(pizzaDaInserire.pizza);
+            PizzaManager.InserisciPizza(pizzaDaInserire.pizza, pizzaDaInserire.SelectedIngredients);
 
             // Richiamo la action Index affinché vengano mostrate tutte le pizze
             // inclusa quella nuova
             return RedirectToAction("Index");
+
         }
 
 
@@ -117,6 +112,7 @@ namespace Test_MVC_2.Controllers
                 return NotFound();
             //Popolo la form con i dati
             PizzaFormModel model = new PizzaFormModel(pizza, PizzaManager.GetAllCategories());
+            model.CreateIngredients();
             return View(model);
         }
 
@@ -130,10 +126,11 @@ namespace Test_MVC_2.Controllers
                 // Ritorno la form di prima con i dati della pizza
                 // precompilati dall'utente
                 pizzaDaModificare.Categories = PizzaManager.GetAllCategories();
+                pizzaDaModificare.CreateIngredients();
                 return View("UpdatePizza", pizzaDaModificare);
             }
 
-            var pizzamodificata = PizzaManager.EditaPizza(id, pizzaDaModificare.pizza);
+            var pizzamodificata = PizzaManager.EditaPizza(id, pizzaDaModificare.pizza, pizzaDaModificare.SelectedIngredients);
             if (pizzamodificata)
             {
                 // Richiamiamo la action Index affinché vengano mostrate tutte le pizze
@@ -143,7 +140,6 @@ namespace Test_MVC_2.Controllers
                 return NotFound();
 
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -159,6 +155,7 @@ namespace Test_MVC_2.Controllers
             else
                 return NotFound();
         }
+
         //Frammento scritto dall'insegnante...
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 

@@ -37,65 +37,72 @@ namespace Test_MVC_2.Data
             //restituita anche l'informazione della category
 
             if (includeReferences)
-                return db.Pizzas.Where(x=>x.Id == id).Include(p=>p.Category).FirstOrDefault();
+                //attraverso la lambda functions includo nella richiesta della pizza anche categorie e ingredienti
+                return db.Pizzas.Where(x=>x.Id == id).Include(p=>p.Category).Include(p=>p.Ingredients).FirstOrDefault();
 
             //Altrimenti mi viene restituito solo l'elemento pizza con valore di category null
 
             return db.Pizzas.FirstOrDefault(p => p.Id == id);
         }
 
-
-        public static void InserisciPizza(Pizza pizza)
+        public static void InserisciPizza(Pizza pizza, List<string> selectedIngredients)
         {
             using PizzaContext db = new PizzaContext();
+
+            pizza.Ingredients = new List<Ingredient>();
+
+            if (selectedIngredients != null)
+            {
+                // Trasformiamo gli ID scelti in ingredienti da aggiungere tra i riferimenti in Pizza
+                foreach (var ingredient in selectedIngredients)
+                {
+                    //converto l'ingrediente preso tramite form in int'
+                    int id = int.Parse(ingredient);
+
+                    // NON usiamo un GetIngredientById() perché userebbe un db context diverso
+                    // e ciò causerebbe errore in fase di salvataggio - usiamo lo stesso context all'interno della stessa operazione
+                    
+                    var ingredientDalDb= db.Ingredients.FirstOrDefault(x => x.Id == id);
+                    if (ingredientDalDb != null)
+                    {
+                        pizza.Ingredients.Add(ingredientDalDb);
+                    }
+                }
+            }
             db.Pizzas.Add(pizza);
             db.SaveChanges();
         }
 
-
-        //public static bool EditaPizza(int id, string name, string description, string url, float price)
-        //{
-        //    using PizzaContext db = new PizzaContext();
-        //    var pizza = db.Pizzas.FirstOrDefault(p => p.Id == id);
-
-        //    if (pizza == null)
-        //    {
-        //        return false;
-
-        //    }
-
-        //    pizza.Name = name;
-        //    pizza.Description = description;
-        //    pizza.Url = url;
-        //    pizza.Price = price;
-        //    db.SaveChanges();
-        //    return true;
-        //}
-
         //Alla Update (EditaPizza) Anzichè i parametri singoli gli passo direttamente l'oggetto Pizza
-
-        public static bool EditaPizza(int id, Pizza pizza)
+        public static bool EditaPizza(int id, Pizza pizza, List<string> selectedIngredients)
         {
             try
             {
-
+                // Non posso riusare GetPizza()
+                // perché il DbContext deve continuare a vivere
+                // affinché possa accorgersi di quali modifiche deve salvare
                 using PizzaContext db = new PizzaContext();
-                //Assegno alla var pizzadamodificare il valore della query che mi restituisce la pizza che corrisponde a questo id
-
-                var pizzaDaModificare = db.Pizzas.FirstOrDefault(p => p.Id == id);
-
-                //Se la pizza in questione non esiste il valore mi ritorna null
-
+                var pizzaDaModificare = db.Pizzas.Where(p => p.Id == id).Include(p => p.Ingredients).FirstOrDefault();
                 if (pizzaDaModificare == null)
                     return false;
-
-                //altrimenti aggiorno i valori delle proprietà dell'oggetto pizza con i valori che gli passo 
-                //dalla view update tramite form 
-                    
                 pizzaDaModificare.Name = pizza.Name;
                 pizzaDaModificare.Description = pizza.Description;
                 pizzaDaModificare.Price = pizza.Price;
                 pizzaDaModificare.CategoryId = pizza.CategoryId;
+
+                //Svuoto ingredients con la funzione Clear in modo da non aggiungere doppioni
+
+                pizzaDaModificare.Ingredients.Clear();
+                if (selectedIngredients != null)
+                {
+                    foreach (var ingredient in selectedIngredients)
+                    {
+                        int ingredientId = int.Parse(ingredient);
+                        var ingredientFromDb = db.Ingredients.FirstOrDefault(x => x.Id == ingredientId);
+                        if (ingredientFromDb != null)
+                            pizzaDaModificare.Ingredients.Add(ingredientFromDb);
+                    }
+                }
 
                 db.SaveChanges();
                 return true;
@@ -130,18 +137,19 @@ namespace Test_MVC_2.Data
             }
         }
 
+
         public static void PopolaDB()
         {
             if (PizzaManager.ContaTuttelePizze() == 0)
             {
                 //string name, string description, string url, float price
 
-                PizzaManager.InserisciPizza(new Pizza("Margherita", "Farina 0 Pomodoro mozzarella olio basilico", "img/pizza-1.jpg", 5.5f));
-                PizzaManager.InserisciPizza(new Pizza("Moenese", "Farina 0 Pomodoro Puzzone funghi olio basilico", "img/pizza-2.jpg", 5.5f));
-                PizzaManager.InserisciPizza(new Pizza("Schmidt", "Pomodoro mozzarella uovo pancetta e cetriolini", "img/pizza-3.jpg" ,9.5f));
-                PizzaManager.InserisciPizza(new Pizza("Capricciosa", "Farina 0 Pomodoro mozzarella prosciutto cotto carciofi funghi olive olio", "img/pizza-4.jpg", 8.0f));
-                PizzaManager.InserisciPizza(new Pizza("Quattro Formaggi", "Farina 0 Mozzarella gorgonzola parmigiano fontina olio", "img/pizza-5.jpg", 7.5f));
-                PizzaManager.InserisciPizza(new Pizza("Diavola", "Farina 0 Pomodoro mozzarella salame piccante olio basilico", "img/pizza-6.jpg", 6.5f));
+                PizzaManager.InserisciPizza(new Pizza("Margherita", "Farina 0 Pomodoro mozzarella olio basilico", "img/pizza-1.jpg", 5.5f) ,new());
+                PizzaManager.InserisciPizza(new Pizza("Moenese", "Farina 0 Pomodoro Puzzone funghi olio basilico", "img/pizza-2.jpg", 5.5f),new());
+                PizzaManager.InserisciPizza(new Pizza("Schmidt", "Pomodoro mozzarella uovo pancetta e cetriolini", "img/pizza-3.jpg" ,9.5f),new());
+                PizzaManager.InserisciPizza(new Pizza("Capricciosa", "Farina 0 Pomodoro mozzarella prosciutto cotto carciofi funghi olive olio", "img/pizza-4.jpg", 8.0f) ,new());
+                PizzaManager.InserisciPizza(new Pizza("Quattro Formaggi", "Farina 0 Mozzarella gorgonzola parmigiano fontina olio", "img/pizza-5.jpg", 7.5f) ,new());
+                PizzaManager.InserisciPizza(new Pizza("Diavola", "Farina 0 Pomodoro mozzarella salame piccante olio basilico", "img/pizza-6.jpg", 6.5f) ,new());
 
             }
 
@@ -154,6 +162,10 @@ namespace Test_MVC_2.Data
             using PizzaContext db = new PizzaContext();
             return db.Categories.ToList();
         }
-
+        public static List<Ingredient> GetAllIngredients()
+        {
+            using PizzaContext db = new PizzaContext();
+            return db.Ingredients.ToList();
+        }
     }
 }
