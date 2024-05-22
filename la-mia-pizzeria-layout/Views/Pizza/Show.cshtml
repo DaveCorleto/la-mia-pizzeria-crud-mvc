@@ -1,4 +1,6 @@
-﻿@model Pizza
+﻿@using Test_MVC_2.Models
+
+@model PizzaFormModel
 @{
     ViewData["Title"] = "Show";
     Layout = "_LayoutPersonalizzato";
@@ -10,12 +12,20 @@
 <h1>MENU</h1>
 <h2>Dettaglio pizza</h2>
 
-<h1>Ecco la @Model.Name </h1>
-@* Qui non vede la foto *@
-<img src="@Model.Url" alt="@Model.Name" class="img-fluid" style="max-width: 300px;" />
-<p>@Model.Description</p>
+<h1>Ecco la @Model.pizza.Name </h1>
+<img src="@Url.Content("~/" + Model.pizza.Url)" alt="@Model.pizza.Name" class="img-fluid" style="max-width: 300px;" />
+<p>@Model.pizza.Description</p>
+<p>@Model.pizza.GetDisplayedCategory()</p>
+
+@foreach (var ingredient in Model.Ingredients)
+{
+    if (ingredient.Selected)
+    {
+        <p>@ingredient.Text</p>
+    }
+}
 <strong>Prezzo: </strong>
-<span>@Model.Price </span>
+<span>@Model.pizza.Price </span>
 
 <style>
 

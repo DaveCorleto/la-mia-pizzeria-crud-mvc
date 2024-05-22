@@ -52,10 +52,18 @@ namespace Test_MVC_2.Controllers
 
 
 
+        //public IActionResult Show(int id)
+        //{
+        //    var pizza = PizzaManager.RecuperaPizzaDaId(id);
+        //    return View(pizza);
+        //}
         public IActionResult Show(int id)
         {
             var pizza = PizzaManager.RecuperaPizzaDaId(id);
-            return View(pizza);
+            var categories = PizzaManager.GetAllCategories(); // Supponiamo che tu abbia un metodo per recuperare tutte le categorie
+            var model = new PizzaFormModel(pizza, categories);
+            model.CreateIngredients(); // Assicurati di popolare gli ingredienti
+            return View(model);
         }
 
         [HttpGet]
