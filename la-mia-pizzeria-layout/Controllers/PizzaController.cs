@@ -12,7 +12,7 @@ using Test_MVC_2.Data;
 using Test_MVC_2.Models;
 namespace Test_MVC_2.Controllers
 {
-    [Authorize]
+
     public class PizzaController : Controller
     {
         //logger che viene utilizzato per registrare informazioni, avvisi ed errori relativi alle operazioni
@@ -52,13 +52,7 @@ namespace Test_MVC_2.Controllers
             }
         }
 
-
-
-        //public IActionResult Show(int id)
-        //{
-        //    var pizza = PizzaManager.RecuperaPizzaDaId(id);
-        //    return View(pizza);
-        //}
+        [Authorize(Roles = "USER,ADMIN")]
         public IActionResult Show(int id)
         {
             var pizza = PizzaManager.RecuperaPizzaDaId(id);
@@ -68,6 +62,7 @@ namespace Test_MVC_2.Controllers
             return View(model);
         }
 
+        [Authorize("ADMIN")]
         [HttpGet]
         public IActionResult Create() 
         {
@@ -81,7 +76,7 @@ namespace Test_MVC_2.Controllers
             return View(model);
         }
 
-
+        [Authorize("ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -110,7 +105,7 @@ namespace Test_MVC_2.Controllers
         }
 
 
-
+        [Authorize("ADMIN")]
         [HttpGet]
 
         public IActionResult Update(int id) // Restituisce la form per l'update di una pizza
@@ -126,7 +121,7 @@ namespace Test_MVC_2.Controllers
             return View(model);
         }
 
-
+        [Authorize("ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(int id, PizzaFormModel pizzaDaModificare) // Restituisce la form per la creazione di pizze

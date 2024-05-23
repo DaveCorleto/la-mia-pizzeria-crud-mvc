@@ -9,24 +9,50 @@
 }
 
 
-<h1>MENU</h1>
-<h2>Dettaglio pizza</h2>
+<h1>Vi presentiamo la @Model.pizza.Name </h1>
 
-<h1>Ecco la @Model.pizza.Name </h1>
-<img src="@Url.Content("~/" + Model.pizza.Url)" alt="@Model.pizza.Name" class="img-fluid" style="max-width: 300px;" />
-<p>@Model.pizza.Description</p>
-<p>@Model.pizza.GetDisplayedCategory()</p>
+<div class="pizza-show">
+    <img src="@Url.Content("~/" + Model.pizza.Url)" alt="@Model.pizza.Name" id="img"/>
+    <p>@Model.pizza.Description</p>
+    <p> Questa pizza fa parte della categoria: @Model.pizza.GetDisplayedCategory()</p>
 
-@foreach (var ingredient in Model.Ingredients)
-{
-    if (ingredient.Selected)
-    {
-        <p>@ingredient.Text</p>
-    }
-}
-<strong>Prezzo: </strong>
-<span>@Model.pizza.Price </span>
+    <div class="ingredients">
+        @foreach (var ingredient in Model.Ingredients)
+        {
+            if (ingredient.Selected)
+            {
+                <span>@ingredient.Text,</span>
+            }
+        }
+    </div>
+
+    <p>Prezzo: @Model.pizza.Price $</p>
+</div>
+
 
 <style>
-
+    .pizza-show {
+        width:75%;
+        margin:auto;
+        background-color:rgba(0,0,0,0.2);
+    }
+    .pizza-show * {
+        color:white;
+        margin:auto;
+    }
+    #img {
+        display:block;
+        margin:auto;
+        width:50%;
+        border-radius:15px;
+    }
+    p {
+        margin-top:20px;
+        text-align:center;
+    }
+    .ingredients {
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
 </style>
