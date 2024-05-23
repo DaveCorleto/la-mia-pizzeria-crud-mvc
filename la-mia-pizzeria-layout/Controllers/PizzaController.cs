@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -11,6 +12,7 @@ using Test_MVC_2.Data;
 using Test_MVC_2.Models;
 namespace Test_MVC_2.Controllers
 {
+    [Authorize]
     public class PizzaController : Controller
     {
         //logger che viene utilizzato per registrare informazioni, avvisi ed errori relativi alle operazioni
@@ -149,6 +151,9 @@ namespace Test_MVC_2.Controllers
 
         }
 
+        //Solo l'ADMIN può cancellare le pizze
+
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)

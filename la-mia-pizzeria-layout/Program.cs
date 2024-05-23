@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Test_MVC_2.Data;
+using Microsoft.AspNetCore.Identity;
+using Test_MVC_2;
 
 namespace Test_MVC_2
 {
@@ -10,7 +12,14 @@ namespace Test_MVC_2
         {
             public static void Main(string[] args)
             {
-                var builder = WebApplication.CreateBuilder(args);
+
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<PizzaContext>();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<PizzaContext>();
 
                 // Add services to the container.
                 builder.Services.AddControllersWithViews();
@@ -30,13 +39,16 @@ namespace Test_MVC_2
 
                 app.UseRouting();
 
+                app.UseAuthentication();
+
                 app.UseAuthorization();
 
                 app.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Pizza}/{action=Index}/{id?}");
+                app.MapRazorPages();
 
-                app.Run();
+            app.Run();
             }
         }
 }
